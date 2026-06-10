@@ -21,43 +21,9 @@ Did this work actually improve something customers or the business care about?
 - Compares PR activity against business-impact style evidence.
 - Uses observability-style signals to show what happened after merge.
 
-## Demo Status
+## Demo
 
-What works:
-
-- React/TypeScript/Vite demo app.
-- Repo input and PR scan flow.
-- Seeded impact docket with standout PRs.
-- Mock observability signals.
-- Open PR comment draft asking authors to explain expected business outcome and measurement.
-- Backend route for GitHub + Anthropic analysis.
-
-What is partial:
-
-- Observability data is mocked.
-- Live Anthropic analysis is wired, but the demo has a seeded fallback because the LLM path can be flaky in local environments.
-- The business-impact evidence is demo data, not production telemetry.
-
-## Setup
-
-```bash
-npm install
-cp .env.example .env
-npm run dev
-```
-
-Add your Anthropic key to `.env`:
-
-```bash
-ANTHROPIC_API_KEY=sk-ant-api03-your-key-here
-ANTHROPIC_MODEL=claude-sonnet-4-6
-```
-
-Then open:
-
-```text
-http://127.0.0.1:4317
-```
+<img src="https://github.com/user-attachments/assets/0ed5c4e8-037e-4f5f-ac17-dee5d2f6d65f" width="800" />
 
 ## Built With Codex
 
