@@ -1,5 +1,7 @@
 # Goodhart Law Police
 
+<img src="https://github.com/user-attachments/assets/f698157b-f59e-401e-b0b6-60d721bed438" width="800" />
+
 > "When a measure becomes a target, it ceases to be a good measure."
 
 Goodhart Police is a PR review agent for teams adopting AI-assisted engineering. It helps catch when engineering work looks productive by surface metrics, like PR volume or lines changed, but lacks a clear connection to business impact.
