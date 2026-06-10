@@ -6,6 +6,12 @@
 
 Goodhart Police is a PR review agent for teams adopting AI-assisted engineering. It helps catch when engineering work looks productive by surface metrics, like PR volume or lines changed, but lacks a clear connection to business impact.
 
+## Why
+
+As companies adopt AI, it gets easier to reward fake productivity: more PRs, more code churn, more impressive demos. Goodhart Police pushes teams to ask a better question:
+
+Did this work actually improve something customers or the business care about?
+
 ## What It Does
 
 - Takes a GitHub repo URL.
@@ -52,12 +58,6 @@ Then open:
 ```text
 http://127.0.0.1:4317
 ```
-
-## Why This Exists
-
-As companies adopt AI, it gets easier to reward fake productivity: more PRs, more code churn, more impressive demos. Goodhart Police pushes teams to ask a better question:
-
-Did this work actually improve something customers or the business care about?
 
 ## Built With Codex
 
