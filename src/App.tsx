@@ -60,16 +60,18 @@ export function App() {
 
     const analysis = analyzeMutation.mutateAsync(repoUrl.trim());
 
-    Promise.all([scanAnimation, analysis])
-      .then(([, nextDocket]) => {
+    scanAnimation.then(() => {
+      setPhase("results");
+    });
+
+    analysis
+      .then((nextDocket) => {
         setGeneratedDocket(nextDocket);
-        window.setTimeout(() => setPhase("results"), 450);
       })
       .catch((error: unknown) => {
         setScanError(
           error instanceof Error ? error.message : "Analysis failed",
         );
-        setPhase("input");
       });
   };
 
