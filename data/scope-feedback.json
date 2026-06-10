@@ -1,0 +1,25 @@
+{
+  "updatedAt": null,
+  "projectName": "Goodhart Guard",
+  "version": "v0.3-interview",
+  "thesis": "As enterprises adopt AI agents, the question shifts from 'how much work did the agent do?' to 'did the work improve the business outcome without creating perverse incentives?'",
+  "audience": "Eliza-style enterprise AI adoption teams and their clients",
+  "scope": {
+    "in": [
+      "Detect when easy-to-count AI workflow metrics stop matching real impact.",
+      "Compare activity metrics against outcome, quality, risk, and user-trust signals.",
+      "Surface anti-gaming alerts with human-readable evidence.",
+      "Produce an executive-ready confidence score for agent rollout governance."
+    ],
+    "out": [
+      "Replacing enterprise analytics systems.",
+      "Guaranteeing causality from weak data.",
+      "Policing individual employees.",
+      "Building a full SIEM, observability suite, or HR performance platform."
+    ]
+  },
+  "demoScenario": "Undecided. The wedge demo should come from the founder interview.",
+  "answers": {},
+  "feedback": [],
+  "decisions": []
+}

@@ -1,0 +1,252 @@
+{
+  "repo": {
+    "owner": "ChangePlusPlusVandy",
+    "name": "bookem-user",
+    "url": "https://github.com/ChangePlusPlusVandy/bookem-user",
+    "description": "User portal for Book'em's volunteer management system.",
+    "customer": "Book'em staff and volunteers coordinating literacy programs.",
+    "sourceNote": "Seeded demo data modeled after the public repository structure and nonprofit volunteer-management domain."
+  },
+  "summary": {
+    "mergedPrsInvestigated": 8,
+    "agentsDelegated": 5,
+    "highestImpactPr": 418,
+    "highestGoodhartRiskPr": 427,
+    "evidenceGaps": 3
+  },
+  "prs": [
+    {
+      "number": 418,
+      "title": "Fix volunteer signup session loss after invite redirect",
+      "status": "merged",
+      "author": "sam",
+      "mergedAt": "2026-06-04",
+      "filesChanged": ["pages/register.tsx", "lib/auth/session.ts", "__tests__/api/register.test.ts"],
+      "activity": { "commits": 2, "files": 3, "linesChanged": 74 },
+      "impactScore": 94,
+      "goodhartRisk": 8,
+      "category": "Customer-impacting bug fix",
+      "verdict": "Tiny PR, highest business impact.",
+      "businessTrace": [
+        "Touches volunteer registration, the front door for new Book'em volunteers.",
+        "Linked to support notes about invited users abandoning signup after redirect.",
+        "Adds regression coverage around the exact invite/session failure."
+      ],
+      "observabilitySignals": [
+        "Invite signup completion +18% after merge",
+        "Session error logs down 73%",
+        "Support complaints about invite redirects fell from 7/week to 1/week"
+      ],
+      "agentFindings": [
+        { "agent": "Customer Impact Agent", "stance": "high", "finding": "Signup failure blocks volunteer activation, directly harming program capacity." },
+        { "agent": "Evidence Agent", "stance": "high", "finding": "Strong evidence: linked support complaints, auth path diff, regression test." },
+        { "agent": "Maintenance Agent", "stance": "medium", "finding": "Small session helper cleanup reduces future auth fragility." },
+        { "agent": "Goodhart Risk Agent", "stance": "low", "finding": "Low activity footprint with clear outcome; not inflated." }
+      ],
+      "measurementPlan": ["invite_signup_started", "invite_signup_completed", "invite_session_error"],
+      "rankReason": "Small diff protects the volunteer onboarding funnel, which is business-critical for the nonprofit."
+    },
+    {
+      "number": 421,
+      "title": "Remove dead availability branches from booking request flow",
+      "status": "merged",
+      "author": "zine",
+      "mergedAt": "2026-06-05",
+      "filesChanged": ["components/BookingRequestForm.tsx", "utils/availability.ts", "__tests__/booking-flow.test.ts"],
+      "activity": { "commits": 1, "files": 3, "linesChanged": 119 },
+      "impactScore": 88,
+      "goodhartRisk": 11,
+      "category": "High-value maintenance",
+      "verdict": "Maintenance work that protects a valuable workflow.",
+      "businessTrace": [
+        "Removes unused branching in the booking flow used by volunteers requesting sessions.",
+        "Keeps the scheduling path easier to reason about before peak volunteer season.",
+        "Adds tests proving no regression in booking request eligibility."
+      ],
+      "observabilitySignals": [
+        "Booking validation errors down 22%",
+        "Median time to submit booking request improved from 2m 14s to 1m 39s"
+      ],
+      "agentFindings": [
+        { "agent": "Maintenance Agent", "stance": "high", "finding": "Simplifies active code in a mission-critical path; this is not janitorial churn." },
+        { "agent": "Customer Impact Agent", "stance": "medium", "finding": "Users may not see a new feature, but they benefit through fewer booking failures." },
+        { "agent": "Evidence Agent", "stance": "medium", "finding": "Test coverage helps, but production booking-failure telemetry is missing." },
+        { "agent": "Goodhart Risk Agent", "stance": "low", "finding": "Net code removal plus targeted tests is a strong anti-Goodhart signal." }
+      ],
+      "measurementPlan": ["booking_request_started", "booking_request_submitted", "booking_request_validation_failed"],
+      "rankReason": "Protects the reliability and maintainability of an active workflow that users depend on."
+    },
+    {
+      "number": 409,
+      "title": "Add Cypress coverage for volunteer onboarding happy path",
+      "status": "merged",
+      "author": "maya",
+      "mergedAt": "2026-05-30",
+      "filesChanged": ["cypress/e2e/onboarding.cy.ts", ".github/workflows/e2e.yml"],
+      "activity": { "commits": 3, "files": 2, "linesChanged": 156 },
+      "impactScore": 82,
+      "goodhartRisk": 15,
+      "category": "Quality infrastructure",
+      "verdict": "High leverage because it guards the most important user journey.",
+      "businessTrace": [
+        "Covers account creation, profile completion, and first booking request.",
+        "Runs in CI, preventing regressions before volunteers hit them.",
+        "Targets the path most closely tied to volunteer activation."
+      ],
+      "observabilitySignals": [
+        "2 onboarding regressions caught in CI before production",
+        "Main branch onboarding failure rate stayed at 0% during next 5 merges"
+      ],
+      "agentFindings": [
+        { "agent": "Customer Impact Agent", "stance": "medium", "finding": "Indirect impact, but on a critical journey." },
+        { "agent": "Evidence Agent", "stance": "high", "finding": "Executable proof exists in CI." },
+        { "agent": "Maintenance Agent", "stance": "high", "finding": "Future PRs become safer and cheaper to review." },
+        { "agent": "Goodhart Risk Agent", "stance": "low", "finding": "Test code can be gamed, but this targets a real workflow." }
+      ],
+      "measurementPlan": ["onboarding_test_failures", "main_branch_onboarding_regressions"],
+      "rankReason": "Does not ship visible UI, but materially lowers risk around volunteer activation."
+    },
+    {
+      "number": 423,
+      "title": "Speed up volunteer dashboard by memoizing assignment cards",
+      "status": "merged",
+      "author": "rachel",
+      "mergedAt": "2026-06-06",
+      "filesChanged": ["components/Dashboard/AssignmentList.tsx", "components/Dashboard/AssignmentCard.tsx"],
+      "activity": { "commits": 2, "files": 2, "linesChanged": 61 },
+      "impactScore": 74,
+      "goodhartRisk": 18,
+      "category": "Performance",
+      "verdict": "Likely useful, but needs real latency telemetry.",
+      "businessTrace": [
+        "Touches the dashboard volunteers use to see assignments.",
+        "Reduces repeated card rendering when filters change.",
+        "No real user performance measurement is attached."
+      ],
+      "observabilitySignals": [
+        "No pre-merge latency baseline found",
+        "Police recommends adding dashboard_filter_latency_ms"
+      ],
+      "agentFindings": [
+        { "agent": "Customer Impact Agent", "stance": "medium", "finding": "Dashboard responsiveness affects repeat volunteer usage." },
+        { "agent": "Evidence Gap Agent", "stance": "high", "finding": "No before/after Web Vitals or interaction timing." },
+        { "agent": "Maintenance Agent", "stance": "medium", "finding": "Memoization is contained and readable." },
+        { "agent": "Goodhart Risk Agent", "stance": "medium", "finding": "Performance claims without measurements are easy to overstate." }
+      ],
+      "measurementPlan": ["dashboard_filter_latency_ms", "assignment_list_render_ms"],
+      "rankReason": "Promising user impact, but the product needs instrumentation before calling it proven."
+    },
+    {
+      "number": 416,
+      "title": "Clarify empty states for users with no active assignments",
+      "status": "merged",
+      "author": "ana",
+      "mergedAt": "2026-06-02",
+      "filesChanged": ["components/Dashboard/EmptyAssignments.tsx", "pages/dashboard.tsx"],
+      "activity": { "commits": 1, "files": 2, "linesChanged": 43 },
+      "impactScore": 65,
+      "goodhartRisk": 21,
+      "category": "UX improvement",
+      "verdict": "Useful UX polish with moderate impact evidence.",
+      "businessTrace": [
+        "Targets a confusing first-session state for newly approved volunteers.",
+        "May reduce support questions about whether signup worked.",
+        "No support-ticket link or activation metric is attached."
+      ],
+      "agentFindings": [
+        { "agent": "Customer Impact Agent", "stance": "medium", "finding": "Improves user confidence during onboarding." },
+        { "agent": "Evidence Agent", "stance": "low", "finding": "Impact hypothesis is plausible but under-evidenced." },
+        { "agent": "Maintenance Agent", "stance": "low", "finding": "Small isolated UI component." },
+        { "agent": "Goodhart Risk Agent", "stance": "low", "finding": "Small honest UX change; not inflated." }
+      ],
+      "measurementPlan": ["empty_assignment_viewed", "support_no_assignment_question"],
+      "rankReason": "Likely helps confused users, but impact is softer than signup or booking reliability."
+    },
+    {
+      "number": 425,
+      "title": "Upgrade Next.js and patch transitive dependencies",
+      "status": "merged",
+      "author": "devin",
+      "mergedAt": "2026-06-07",
+      "filesChanged": ["package.json", "package-lock.json", "next.config.js"],
+      "activity": { "commits": 4, "files": 3, "linesChanged": 1320 },
+      "impactScore": 58,
+      "goodhartRisk": 34,
+      "category": "Platform maintenance",
+      "verdict": "Legitimate maintenance, but activity metrics overstate the work.",
+      "businessTrace": [
+        "Patches framework dependencies and reduces security/runtime risk.",
+        "Most line changes are lockfile churn.",
+        "No user-facing behavior change expected."
+      ],
+      "agentFindings": [
+        { "agent": "Maintenance Agent", "stance": "medium", "finding": "Keeping the platform current matters, especially for a volunteer portal." },
+        { "agent": "Evidence Agent", "stance": "medium", "finding": "Dependency audit passes, but no security advisory is linked." },
+        { "agent": "Customer Impact Agent", "stance": "low", "finding": "Impact is risk reduction, not immediate UX." },
+        { "agent": "Goodhart Risk Agent", "stance": "medium", "finding": "Large line count is mostly generated lockfile diff; do not reward it as feature output." }
+      ],
+      "measurementPlan": ["dependency_audit_status", "build_failure_rate"],
+      "rankReason": "Necessary maintenance, but not as impactful as PRs protecting volunteer activation."
+    },
+    {
+      "number": 427,
+      "title": "Reorganize dashboard styles and rename card variants",
+      "status": "merged",
+      "author": "lee",
+      "mergedAt": "2026-06-08",
+      "filesChanged": ["styles/dashboard.module.css", "components/Dashboard/*.tsx", "components/ui/Card.tsx"],
+      "activity": { "commits": 11, "files": 18, "linesChanged": 684 },
+      "impactScore": 29,
+      "goodhartRisk": 82,
+      "category": "Possible activity padding",
+      "verdict": "Looks busy, weak business value evidence.",
+      "businessTrace": [
+        "Mostly renames style variants and moves CSS blocks.",
+        "No issue, user complaint, accessibility bug, or design goal linked.",
+        "Touches many files without changing user-visible workflow outcomes."
+      ],
+      "observabilitySignals": [
+        "No user-facing metric changed",
+        "No linked ticket, support issue, or design QA artifact",
+        "High file churn, low outcome evidence"
+      ],
+      "agentFindings": [
+        { "agent": "Goodhart Risk Agent", "stance": "high", "finding": "High commit count and file churn with weak outcome evidence." },
+        { "agent": "Customer Impact Agent", "stance": "low", "finding": "No clear volunteer or staff benefit." },
+        { "agent": "Maintenance Agent", "stance": "medium", "finding": "Could be useful if it reduces future UI duplication, but that claim is not proven." },
+        { "agent": "Evidence Agent", "stance": "low", "finding": "Missing before/after screenshots, design issue, or test coverage." }
+      ],
+      "measurementPlan": ["dashboard_component_duplication", "visual_regression_pass_rate"],
+      "rankReason": "Classic Goodhart risk: big visible diff, little evidence of business or maintenance impact."
+    },
+    {
+      "number": 431,
+      "title": "Add volunteer role badges to profile header",
+      "status": "open",
+      "author": "nina",
+      "mergedAt": null,
+      "filesChanged": ["components/ProfileHeader.tsx", "lib/roles.ts"],
+      "activity": { "commits": 2, "files": 2, "linesChanged": 51 },
+      "impactScore": 46,
+      "goodhartRisk": 39,
+      "category": "Open PR needs business outcome",
+      "verdict": "Do not merge as 'impactful' until the intended outcome is explicit.",
+      "businessTrace": [
+        "May help staff and volunteers understand permissions.",
+        "Could also be decorative if no confusion exists today.",
+        "Needs author response: what behavior should change?"
+      ],
+      "agentFindings": [
+        { "agent": "Evidence Gap Agent", "stance": "high", "finding": "No business outcome stated by PR author." },
+        { "agent": "Customer Impact Agent", "stance": "medium", "finding": "Role visibility can reduce confusion if permissions are a real pain point." },
+        { "agent": "Goodhart Risk Agent", "stance": "medium", "finding": "Small UI addition could be honest or cosmetic; ask for evidence." }
+      ],
+      "measurementPlan": ["profile_role_badge_viewed", "permission_confusion_support_ticket"],
+      "rankReason": "Open PR should trigger an impact-intent comment rather than a final ranking."
+    }
+  ],
+  "openPrComment": {
+    "prNumber": 431,
+    "body": "Goodhart Police impact check:\n\nThis PR may be useful, but its business outcome is currently under-specified.\n\nPlease answer before merge:\n1. What user or business outcome should improve if this ships?\n2. Who benefits: volunteers, Book'em staff, coordinators, or maintainers?\n3. How will we know it worked after merge?\n\nSuggested measurement if you want the police to instrument this:\n- profile_role_badge_viewed\n- permission_confusion_support_ticket\n- role_based_action_blocked\n\nCurrent verdict: plausible impact, insufficient evidence."
+  }
+}
