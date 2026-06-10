@@ -61,4 +61,6 @@ Did this work actually improve something customers or the business care about?
 
 ## Built With Codex
 
+This was coded up from zero in just one hour! Don't expect this to work end-to-end, but this provides a good scaffolding for companies seeking to actually drive high impact with AI, rather than suffer from Goodhart's law.
+
 Codex helped shape the product direction, turn the idea into a demo flow, build the React/TypeScript app, seed the PR evidence, wire the GitHub + Anthropic backend, debug API/model issues, simplify the UI copy, and push the project to GitHub.
