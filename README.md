@@ -1,4 +1,4 @@
-# Goodhart Law Police
+# Goodhart Police
 
 <img src="https://github.com/user-attachments/assets/54d68769-ff2a-46cf-8dc8-cfa71e72fb74" width="800" />
 
