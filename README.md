@@ -1,6 +1,6 @@
 # Goodhart Law Police
 
-<img src="https://github.com/user-attachments/assets/f698157b-f59e-401e-b0b6-60d721bed438" width="800" />
+<img src="https://github.com/user-attachments/assets/54d68769-ff2a-46cf-8dc8-cfa71e72fb74" width="800" />
 
 > "When a measure becomes a target, it ceases to be a good measure."
 
