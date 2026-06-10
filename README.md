@@ -12,6 +12,8 @@ As companies adopt AI, it gets easier to reward fake productivity: more PRs, mor
 
 Did this work actually improve something customers or the business care about?
 
+<img src="https://github.com/user-attachments/assets/719d4db7-fe10-4d35-9108-c4b694b58cd9" width="800" />
+
 ## What It Does
 
 - Takes a GitHub repo URL.
